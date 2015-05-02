@@ -10,9 +10,9 @@ import (
 
 func main() {
 	// Parse flags.
-	dictFile := flag.String("d", cmudict.DefaultDictPath(), "Name of cmu-formatted dictionary file to check")
-	length := flag.Int("l", 1, "Length of phoneme sequences to count")
-	accent := flag.Bool("a", false, "Use the accent on vowel phonemes")
+	dictFile := flag.String("dict", cmudict.DefaultDictPath(), "Name of cmu-formatted dictionary file to check")
+	length := flag.Int("len", 1, "Length of phoneme sequences to count")
+	accent := flag.Bool("accent", false, "Use the accent on vowel phonemes")
 	flag.Parse()
 
 	// Load cmuDict.
@@ -24,13 +24,13 @@ func main() {
 		phonemes := cmudict.GetPhonemes(pron, *accent)
 		n := len(phonemes)
 		for i := 0; i < n-*length+1; i++ {
-			sequence := strings.Join(phonemes[i:i+*length], " ")
-			counts[sequence]++
+			seq := strings.Join(phonemes[i:i+*length], " ")
+			counts[seq]++
 		}
 	}
 
 	// Print the sequence counts.
-	for sequence, count := range counts {
-		fmt.Printf("%s,%d\n", sequence, count)
+	for seq, count := range counts {
+		fmt.Printf("%s,%d\n", seq, count)
 	}
 }

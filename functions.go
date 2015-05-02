@@ -11,11 +11,11 @@ import (
 	"strings"
 )
 
-// defaultSpellPath gets the spelling file location from the PHONEUTIL_DATA environment variable.
+// defaultSpellPath gets the spelling file location from the PHONUTIL_DATA environment variable.
 func defaultSpellPath() string {
-	dir := os.Getenv("PHONEUTIL_DATA")
+	dir := os.Getenv("PHONUTIL_DATA")
 	if dir == "" {
-		log.Fatal("Set PHONEUTIL_DATA variable to directory of spelling file")
+		log.Fatal("Set PHONUTIL_DATA variable to directory of spelling file")
 	}
 	return path.Join(dir, "spellings.csv")
 }

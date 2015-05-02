@@ -13,13 +13,13 @@ import (
 
 func main() {
 	// Parse flags.
-	dictFile := flag.String("d", cmudict.DefaultDictPath(), "Name of CMU-formatted file to modify")
-	spellFile := flag.String("s", defaultSpellPath(), "Name of spelling file that maps phonemes to spellings")
-	textFile := flag.String("t", "", "Name of text file to respell")
+	dictFile := flag.String("dict", cmudict.DefaultDictPath(), "Name of CMU-formatted file to modify")
+	spellFile := flag.String("spell", defaultSpellPath(), "Name of spelling file that maps phonemes to spellings")
+	textFile := flag.String("text", "", "Name of text file to respell")
 	flag.Parse()
 
 	if len(*textFile) == 0 {
-		log.Fatal("Missing -t argument")
+		log.Fatal("Missing -text argument")
 	}
 
 	// Load CMUDict file.

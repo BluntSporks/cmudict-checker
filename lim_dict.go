@@ -13,12 +13,12 @@ import (
 
 func main() {
 	// Parse flags.
-	dictFile := flag.String("d", cmudict.DefaultDictPath(), "Name of CMU-formatted file to modify")
-	wordFile := flag.String("w", "", "Name of word list file")
+	dictFile := flag.String("dict", cmudict.DefaultDictPath(), "Name of CMU-formatted file to modify")
+	wordFile := flag.String("word", "", "Name of word list file")
 	flag.Parse()
 
 	if len(*wordFile) == 0 {
-		log.Fatal("Missing -w argument")
+		log.Fatal("Missing -word argument")
 	}
 
 	// Load word file.

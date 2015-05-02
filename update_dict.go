@@ -13,16 +13,16 @@ import (
 
 func main() {
 	// Parse flags.
-	dictFile := flag.String("d", cmudict.DefaultDictPath(), "Name of CMU-formatted file to modify")
-	updateFile := flag.String("u", "", "Name of CMU-formatted update file")
+	dictFile := flag.String("dict", cmudict.DefaultDictPath(), "Name of CMU-formatted file to modify")
+	updateFile := flag.String("update", "", "Name of CMU-formatted update file")
 	flag.Parse()
 
 	if len(*updateFile) == 0 {
-		log.Fatal("Missing -u argument")
+		log.Fatal("Missing -update argument")
 	}
 
 	// Load replacements file.
-	replacements := cmudict.LoadDict(*updateFile)
+	repls := cmudict.LoadDict(*updateFile)
 
 	// Open dict file.
 	handle, err := os.Open(*dictFile)
@@ -47,16 +47,16 @@ func main() {
 			pron := fields[1]
 
 			// Add replacement exactly once if it is available.
-			if replacements[word] != "" {
-				pron = replacements[word]
-				delete(replacements, word)
+			if repls[word] != "" {
+				pron = repls[word]
+				delete(repls, word)
 			}
 			fmt.Printf("%s  %s\n", word, pron)
 		}
 	}
 
 	// Now append any new terms.
-	for word, pron := range replacements {
+	for word, pron := range repls {
 		fmt.Printf("%s  %s\n", word, pron)
 	}
 }
