@@ -10,7 +10,7 @@ Here is a list of short forms used.
 
 | short | full |
 | ----- | ---- |
-| capd | capitalized |
+| cap | capitalized |
 | dict | dictionary |
 | pron | pronunciation |
 | repl | replacement |

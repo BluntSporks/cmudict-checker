@@ -63,11 +63,11 @@ func main() {
 					// Capitalize the first letter of output if the original word was not
 					// lowercase.
 					if i == 0 && isUpper {
-						capd := strings.ToUpper(output[0:1])
+						cap := strings.ToUpper(output[0:1])
 						if len(output) > 1 {
-							capd += output[1:]
+							cap += output[1:]
 						}
-						output = capd
+						output = cap
 					}
 					fmt.Print(output)
 				}
