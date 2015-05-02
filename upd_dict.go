@@ -14,15 +14,15 @@ import (
 func main() {
 	// Parse flags.
 	dictFile := flag.String("dict", cmudict.DefaultDictPath(), "Name of CMU-formatted file to modify")
-	updateFile := flag.String("update", "", "Name of CMU-formatted update file")
+	updFile := flag.String("upd", "", "Name of CMU-formatted upd file")
 	flag.Parse()
 
-	if len(*updateFile) == 0 {
-		log.Fatal("Missing -update argument")
+	if len(*updFile) == 0 {
+		log.Fatal("Missing -upd argument")
 	}
 
 	// Load replacements file.
-	repls := cmudict.LoadDict(*updateFile)
+	repls := cmudict.LoadDict(*updFile)
 
 	// Open dict file.
 	handle, err := os.Open(*dictFile)
