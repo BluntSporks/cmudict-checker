@@ -6,12 +6,4 @@ Set the PHONUTIL_DATA environment variable to the location of the data directory
 export PHONUTIL_DATA=~/go/src/github.com/BluntSporks/phonetic-utilities/data
 
 # Short forms
-Here is a list of short forms used.
-
-| short | full |
-| ----- | ---- |
-| cap | capitalized |
-| dict | dictionary |
-| pron | pronunciation |
-| repl | replacement |
-| sym | symbol |
+See [short-names](https://www.github.com/BluntSporks/short-names) for a list of abbreviations used.
