@@ -25,24 +25,24 @@ func fixPhonemes(phonemes []string) []string {
 	n := len(phonemes)
 	newPhonemes := make([]string, 0, 2*n)
 	for i := 0; i < n; i++ {
-		out := phonemes[i]
-		if len(out) > 2 && out[:2] == "ER" {
+		phoneme := phonemes[i]
+		if len(phoneme) > 2 && phoneme[:2] == "ER" {
 			// Use ahx r instead of erx.
-			newPhonemes = append(newPhonemes, "AH"+string(out[2]))
-			out = "R"
+			newPhonemes = append(newPhonemes, "AH"+string(phoneme[2]))
+			phoneme = "R"
 		} else if i < n-1 {
-			if out == "HH" && phonemes[i+1] == "W" {
+			if phoneme == "HH" && phonemes[i+1] == "W" {
 				// Use wh instead of hw.
-				out = "WH"
+				phoneme = "WH"
 				i++
 			}
 		}
-		newPhonemes = append(newPhonemes, out)
+		newPhonemes = append(newPhonemes, phoneme)
 	}
 	n = len(newPhonemes)
-	output := make([]string, 0, 2*n)
+	out := make([]string, 0, 2*n)
 	for i, ph := range newPhonemes {
-		output = append(output, ph)
+		out = append(out, ph)
 		if i < n-1 {
 			// Use an apostrophe to split up ambiguous combinations of sounds.
 			split := false
@@ -56,32 +56,32 @@ func fixPhonemes(phonemes []string) []string {
 				split = true
 			}
 			if split {
-				output = append(output, "'")
+				out = append(out, "'")
 			}
 		}
 	}
-	return output
+	return out
 }
 
 // loadSpellings loads a file of phonemes to spellings.
 func loadSpellings(file string) map[string]string {
 	// Open file.
-	handle, err := os.Open(file)
+	hdl, err := os.Open(file)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer handle.Close()
+	defer hdl.Close()
 
 	// Scan file line by line.
 	spellings := make(map[string]string)
-	scanner := bufio.NewScanner(handle)
+	scanner := bufio.NewScanner(hdl)
 	for scanner.Scan() {
 		line := scanner.Text()
 		if err := scanner.Err(); err != nil {
 			log.Fatal(err)
 		}
-		fields := strings.Split(line, ",")
-		phoneme, spelling := fields[0], fields[1]
+		flds := strings.Split(line, ",")
+		phoneme, spelling := flds[0], flds[1]
 		spellings[phoneme] = spelling
 	}
 	return spellings
@@ -90,15 +90,15 @@ func loadSpellings(file string) map[string]string {
 // loadWordList loads a list of words in a file and returns it as an uppercased lookup list.
 func loadWordList(file string) map[string]bool {
 	// Open file.
-	handle, err := os.Open(file)
+	hdl, err := os.Open(file)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer handle.Close()
+	defer hdl.Close()
 
 	// Scan file line by line.
 	words := make(map[string]bool)
-	scanner := bufio.NewScanner(handle)
+	scanner := bufio.NewScanner(hdl)
 	for scanner.Scan() {
 		word := scanner.Text()
 		if err := scanner.Err(); err != nil {

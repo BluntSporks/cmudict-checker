@@ -25,14 +25,14 @@ func main() {
 	words := loadWordList(*wordFile)
 
 	// Open dict file.
-	handle, err := os.Open(*dictFile)
+	hdl, err := os.Open(*dictFile)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer handle.Close()
+	defer hdl.Close()
 
 	// Scan file line by line.
-	scanner := bufio.NewScanner(handle)
+	scanner := bufio.NewScanner(hdl)
 	for scanner.Scan() {
 		line := scanner.Text()
 		if err := scanner.Err(); err != nil {
@@ -42,8 +42,8 @@ func main() {
 			// Print all comment lines
 			fmt.Println(line)
 		} else {
-			fields := strings.Split(line, "  ")
-			word, pron := fields[0], fields[1]
+			flds := strings.Split(line, "  ")
+			word, pron := flds[0], flds[1]
 			bare := cmudict.StripIndex(word)
 
 			// Add each version of that word that is available.

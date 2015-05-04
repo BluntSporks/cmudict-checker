@@ -25,14 +25,14 @@ func main() {
 	repls := cmudict.LoadDict(*updFile)
 
 	// Open dict file.
-	handle, err := os.Open(*dictFile)
+	hdl, err := os.Open(*dictFile)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer handle.Close()
+	defer hdl.Close()
 
 	// Scan file line by line.
-	scanner := bufio.NewScanner(handle)
+	scanner := bufio.NewScanner(hdl)
 	for scanner.Scan() {
 		line := scanner.Text()
 		if err := scanner.Err(); err != nil {
@@ -42,9 +42,9 @@ func main() {
 			// Print all comment lines
 			fmt.Println(line)
 		} else {
-			fields := strings.Split(line, "  ")
-			word := fields[0]
-			pron := fields[1]
+			flds := strings.Split(line, "  ")
+			word := flds[0]
+			pron := flds[1]
 
 			// Add replacement exactly once if it is available.
 			if repls[word] != "" {

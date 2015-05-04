@@ -19,18 +19,18 @@ func main() {
 	cmuDict := cmudict.LoadDict(*dictFile)
 
 	// Count the phonemes.
-	counts := make(map[string]int)
+	cnts := make(map[string]int)
 	for _, pron := range cmuDict {
 		phonemes := cmudict.GetPhonemes(pron, *accent)
 		n := len(phonemes)
 		for i := 0; i < n-*length+1; i++ {
 			seq := strings.Join(phonemes[i:i+*length], " ")
-			counts[seq]++
+			cnts[seq]++
 		}
 	}
 
 	// Print the sequence counts.
-	for seq, count := range counts {
-		fmt.Printf("%s,%d\n", seq, count)
+	for seq, cnt := range cnts {
+		fmt.Printf("%s,%d\n", seq, cnt)
 	}
 }

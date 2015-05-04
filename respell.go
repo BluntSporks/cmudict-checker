@@ -29,14 +29,14 @@ func main() {
 	spellings := loadSpellings(*spellFile)
 
 	// Open dict file.
-	handle, err := os.Open(*textFile)
+	hdl, err := os.Open(*textFile)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer handle.Close()
+	defer hdl.Close()
 
 	// Scan file line by line.
-	scanner := bufio.NewScanner(handle)
+	scanner := bufio.NewScanner(hdl)
 	for scanner.Scan() {
 		line := scanner.Text()
 		if err := scanner.Err(); err != nil {
@@ -55,21 +55,21 @@ func main() {
 				for i, phoneme := range fixed {
 					bare := cmudict.StripAccent(phoneme)
 					spelling := spellings[bare]
-					output := phoneme
+					out := phoneme
 					if spelling != "" {
-						output = spelling
+						out = spelling
 					}
 
 					// Capitalize the first letter of output if the original word was not
 					// lowercase.
 					if i == 0 && isUpper {
-						cap := strings.ToUpper(output[0:1])
-						if len(output) > 1 {
-							cap += output[1:]
+						cap := strings.ToUpper(out[0:1])
+						if len(out) > 1 {
+							cap += out[1:]
 						}
-						output = cap
+						out = cap
 					}
-					fmt.Print(output)
+					fmt.Print(out)
 				}
 			}
 		}
