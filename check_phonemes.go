@@ -10,20 +10,20 @@ import (
 func main() {
 	// Parse flags.
 	dictFile := flag.String("dict", cmudict.DefaultDictPath(), "Name of CMU-formatted file to check")
-	symFile := flag.String("sym", cmudict.DefaultSymPath(), "Name of CMU-formatted symbol file to use for checking")
+	symbolFile := flag.String("symbol", cmudict.DefaultSymbolPath(), "Name of CMU-formatted symbol file to use for checking")
 	flag.Parse()
 
 	// Load cmuDict.
 	cmuDict := cmudict.LoadDict(*dictFile)
 
 	// Load symbols.
-	cmuSyms := cmudict.LoadSyms(*symFile, true)
+	cmuSymbols := cmudict.LoadSymbols(*symbolFile, true)
 
 	// Print any row that has bad phonemes.
 	for word, pron := range cmuDict {
 		phonemes := cmudict.GetPhonemes(pron, true)
 		for _, phoneme := range phonemes {
-			if !cmuSyms[phoneme] {
+			if !cmuSymbols[phoneme] {
 				fmt.Printf("%s  %s\n", word, pron)
 				break
 			}
