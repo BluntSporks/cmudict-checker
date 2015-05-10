@@ -63,30 +63,6 @@ func fixPhonemes(phonemes []string) []string {
 	return out
 }
 
-// loadSpellings loads a file of phonemes to spellings.
-func loadSpellings(file string) map[string]string {
-	// Open file.
-	hdl, err := os.Open(file)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer hdl.Close()
-
-	// Scan file line by line.
-	spellings := make(map[string]string)
-	scanner := bufio.NewScanner(hdl)
-	for scanner.Scan() {
-		line := scanner.Text()
-		if err := scanner.Err(); err != nil {
-			log.Fatal(err)
-		}
-		flds := strings.Split(line, ",")
-		phoneme, spelling := flds[0], flds[1]
-		spellings[phoneme] = spelling
-	}
-	return spellings
-}
-
 // loadWordList loads a list of words in a file and returns it as an uppercased lookup list.
 func loadWordList(file string) map[string]bool {
 	// Open file.
@@ -108,12 +84,4 @@ func loadWordList(file string) map[string]bool {
 		words[word] = true
 	}
 	return words
-}
-
-// matchWords matches the ASCII words in a text, including any embedded apostrophes.
-// It also matches wordlike expressions that contain nonword characters, such as email or web addresses.
-// Finally, it captures any other character as a single byte.
-func matchWords(text string) []string {
-	re := regexp.MustCompile(`\pL+(\pP+\pL+)*|.`)
-	return re.FindAllString(text, -1)
 }

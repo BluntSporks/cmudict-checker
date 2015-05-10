@@ -2,7 +2,7 @@
 Set of Golang utilities for phonetic spelling using the cmudict library
 
 ## Status
-Ready to use
+Under development
 
 ## Environment variables
 Set the PHONUTIL_DATA environment variable to the location of the data directory, for example:
